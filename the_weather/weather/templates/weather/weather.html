@@ -115,7 +115,7 @@
         {% for city in weather_data %}
         <div class="weather-container">
             <h2>{{ city.city }}</h2>
-            <p>Temperature: {{ city.temperature }}℉</p>
+            <p>Temperature: {{ city.temperature }}℃</p>
             <p>Description: {{ city.description }}</p>
             <img src="http://openweathermap.org/img/wn/{{ city.icon }}@2x.png" alt="Weather icon">
             <!-- Delete Button -->

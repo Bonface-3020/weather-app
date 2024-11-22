@@ -3,7 +3,7 @@ from .models import City
 import requests
 
 def index(request):
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=e6131fb9e703a878b2b21ac20d9bd430'
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=e6131fb9e703a878b2b21ac20d9bd430'
     error_message = None
 
     # Handle POST request for adding a new city
