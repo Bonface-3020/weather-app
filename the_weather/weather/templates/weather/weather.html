@@ -51,8 +51,8 @@
         }
 
         .error-message {
-            color: red;
-            margin-bottom: 10px;
+            color: #ff4d4d;
+            margin-bottom: 20px;
         }
 
         .cards-container {
@@ -60,15 +60,13 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            width: 100%;
-            padding: 20px;
         }
 
         .weather-container {
             background: rgba(0, 0, 0, 0.5);
             padding: 20px;
             border-radius: 15px;
-            width: 250px;
+            width: 300px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
@@ -77,9 +75,25 @@
             width: 50px;
             height: 50px;
         }
+
+        .delete-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4d4d;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete-button:hover {
+            background-color: #cc0000;
+        }
     </style>
 </head>
 <body>
+    <!-- Title -->
     <h1 class="main-title">HOWDY WEATHER MAN 😊!!</h1>
 
     <!-- Search Bar and Add City -->
@@ -89,13 +103,14 @@
             <input type="text" name="city" placeholder="Enter city name" required />
             <button type="submit">Add City</button>
         </form>
-        <!-- Display error message if any -->
-        {% if error_message %}
-        <p class="error-message">{{ error_message }}</p>
-        {% endif %}
     </div>
 
-    <!-- Horizontal Weather Data Container -->
+    <!-- Error Message -->
+    {% if error_message %}
+    <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+
+    <!-- Weather Data -->
     <div class="cards-container">
         {% for city in weather_data %}
         <div class="weather-container">
@@ -103,6 +118,11 @@
             <p>Temperature: {{ city.temperature }}℉</p>
             <p>Description: {{ city.description }}</p>
             <img src="http://openweathermap.org/img/wn/{{ city.icon }}@2x.png" alt="Weather icon">
+            <!-- Delete Button -->
+            <form method="POST" action="{% url 'delete_city' city_id=city.id %}">
+                {% csrf_token %}
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
         </div>
         {% endfor %}
     </div>
