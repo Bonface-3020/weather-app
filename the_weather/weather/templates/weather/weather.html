@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1.main-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-container input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0078ff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-container button:hover {
+            background-color: #005fcc;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .weather-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .weather-details img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main-title">HOWDY WEATHER MAN 😊!!</h1>
+
+    <!-- Search Bar and Add City -->
+    <div class="search-container">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="city" placeholder="Enter city name" required />
+            <button type="submit">Add City</button>
+        </form>
+        <!-- Display error message if any -->
+        {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Horizontal Weather Data Container -->
+    <div class="cards-container">
+        {% for city in weather_data %}
+        <div class="weather-container">
+            <h2>{{ city.city }}</h2>
+            <p>Temperature: {{ city.temperature }}℉</p>
+            <p>Description: {{ city.description }}</p>
+            <img src="http://openweathermap.org/img/wn/{{ city.icon }}@2x.png" alt="Weather icon">
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
